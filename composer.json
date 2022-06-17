@@ -1,0 +1,29 @@
+{
+	"name": "lsr/helpers",
+	"description": "Laser framework core - Helpers.",
+	"require-dev": {
+		"roave/security-advisories": "dev-latest",
+		"phpunit/phpunit": "10.0.x-dev"
+	},
+	"autoload": {
+		"psr-4": {
+			"Lsr\\Helpers\\": "src/"
+		},
+		"files": [
+			"includes/functions.php"
+		]
+	},
+	"authors": [
+		{
+			"name": "Tomáš Vojík",
+			"email": "vojik@wboy.cz"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": ">=8.1",
+		"nette/utils": "4.0.x-dev",
+		"gettext/gettext": "dev-master",
+		"tracy/tracy": "3.0.x-dev"
+	}
+}
