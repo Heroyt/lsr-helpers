@@ -16,25 +16,6 @@ use Gettext\Generator\PoGenerator;
 use Gettext\Translation;
 use Gettext\Translations;
 
-if (!defined('PRODUCTION')) {
-	define("PRODUCTION", false);
-}
-if (!defined('CHECK_TRANSLATIONS')) {
-	define("CHECK_TRANSLATIONS", false);
-}
-if (!defined('ROOT')) {
-	define("ROOT", dirname(__DIR__).'/');
-}
-if (!defined('ASSETS_DIR')) {
-	define("ASSETS_DIR", ROOT.'assets/');
-}
-if (!defined('LANGUAGE_DIR')) {
-	define("LANGUAGE_DIR", ROOT.'languages/');
-}
-if (!defined('LANGUAGE_FILE_NAME')) {
-	define("LANGUAGE_FILE_NAME", 'LAC');
-}
-
 /**
  * Generate a form token to protect against CSRF
  *
