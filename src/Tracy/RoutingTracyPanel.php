@@ -6,6 +6,7 @@
 namespace Lsr\Helpers\Tracy;
 
 use Lsr\Core\App;
+use Lsr\Core\Router;
 use Lsr\Core\Routing\Route;
 use Lsr\Core\Templating\Latte;
 use Tracy\IBarPanel;
@@ -30,7 +31,7 @@ class RoutingTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getPanel() : string {
-		$routes = $this->formatRoutes(['' => Route::$availableRoutes]);
+		$routes = $this->formatRoutes(['' => Router::$availableRoutes]);
 		return $this->latte->viewToString('debug/Routing/panel', [
 			'request' => App::getRequest()->request,
 			'params'  => App::getRequest()->params,
