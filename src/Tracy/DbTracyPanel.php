@@ -2,19 +2,19 @@
 /**
  * @author Tomáš Vojík <xvojik00@stud.fit.vutbr.cz>, <vojik@wboy.cz>
  */
+
 namespace Lsr\Helpers\Tracy;
 
 use Lsr\Core\App;
 use Lsr\Core\Templating\Latte;
-use Lsr\Helpers\Tracy\Events\TranslationEvent;
+use Lsr\Helpers\Tracy\Events\DbEvent;
 use Tracy\IBarPanel;
 
-class TranslationTracyPanel implements IBarPanel
+class DbTracyPanel implements IBarPanel
 {
 
-	/** @var TranslationEvent[] */
-	static public array $events       = [];
-	static public int   $translations = 0;
+	/** @var DbEvent[] */
+	static public array $events = [];
 	private Latte       $latte;
 
 	public function __construct() {
@@ -22,26 +22,22 @@ class TranslationTracyPanel implements IBarPanel
 		$this->latte = App::getService('latte');
 	}
 
-	public static function logEvent(TranslationEvent $event) : void {
+	public static function logEvent(DbEvent $event) : void {
 		self::$events[] = $event;
-	}
-
-	public static function incrementTranslations() : void {
-		self::$translations++;
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->latte->view('debug/Translation/tab', [], true);
+		return $this->latte->view('debug/Db/tab', [], true);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getPanel() : string {
-		$panel = $this->latte->view('debug/Translation/panel', [], true);
+		$panel = $this->latte->view('debug/Db/panel', [], true);
 		updateTranslations();
 		return $panel;
 	}

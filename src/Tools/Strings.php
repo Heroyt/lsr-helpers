@@ -4,10 +4,6 @@
  */
 namespace Lsr\Helpers\Tools;
 
-use function ctype_lower;
-use function mb_strtolower;
-use function preg_replace;
-use function ucwords;
 
 class Strings extends \Nette\Utils\Strings
 {

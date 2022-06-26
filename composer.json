@@ -1,13 +1,20 @@
 {
 	"name": "lsr/helpers",
 	"description": "Laser framework core - Helpers.",
+	"repositories": [
+		{
+			"type": "composer",
+			"url": "https://packages.laserliga.cz"
+		}
+	],
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
 		"phpunit/phpunit": "^9.5"
 	},
 	"autoload": {
 		"psr-4": {
-			"Lsr\\Helpers\\": "src/"
+			"Lsr\\Helpers\\": "src/",
+			"Lsr\\Exceptions": "Exceptions/"
 		},
 		"files": [
 			"includes/functions.php"
@@ -24,6 +31,7 @@
 		"php": ">=8.1",
 		"nette/utils": "^3.2",
 		"gettext/gettext": "^5.6",
-		"tracy/tracy": "^2.8"
+		"tracy/tracy": "^2.8",
+		"lsr/interfaces": "dev-master"
 	}
 }

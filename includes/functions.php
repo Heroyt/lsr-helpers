@@ -9,12 +9,12 @@
  * @since     1.0
  */
 
-use Lsr\Helpers\Tracy\Events\TranslationEvent;
-use Lsr\Helpers\Tracy\TranslationTracyPanel;
 use Gettext\Generator\MoGenerator;
 use Gettext\Generator\PoGenerator;
 use Gettext\Translation;
 use Gettext\Translations;
+use Lsr\Helpers\Tracy\Events\TranslationEvent;
+use Lsr\Helpers\Tracy\TranslationTracyPanel;
 
 /**
  * Generate a form token to protect against CSRF
@@ -140,7 +140,7 @@ function lang(?string $msg = null, ?string $plural = null, int $num = 1, ?string
 				}
 			}
 		}
-		foreach ($GLOBALS['translations'] as $lang => $translations) {
+		foreach ($GLOBALS['translations'] as $translations) {
 			/** @var Translations $translations */
 			if (!($translation = $translations->find($context, $msgTmp))) {                    // Check if translation exists
 				// Create new translation
@@ -221,7 +221,7 @@ function updateTranslations() : void {
 			}
 			$string->translatePlural(...$plural);
 		}
-		$poGenerator->generateFile($template, LANGUAGE_DIR.''.LANGUAGE_FILE_NAME.'.pot');
+		$poGenerator->generateFile($template, LANGUAGE_DIR.LANGUAGE_FILE_NAME.'.pot');
 	}
 }
 
@@ -307,12 +307,4 @@ function first(array $array) : mixed {
 		return $val;
 	}
 	return null;
-}
-
-if (!function_exists('str_contains')) {
-	function str_contains(string $haystack, string $needle) : bool {
-		/** @noinspection PhpStrFunctionsInspection */
-		/** @noinspection StrContainsCanBeUsedInspection */
-		return strpos($haystack, $needle) !== false;
-	}
 }
