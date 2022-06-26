@@ -15,16 +15,11 @@ class RoutingTracyPanel implements IBarPanel
 {
 	private Latte $latte;
 
-	public function __construct() {
-		/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-		$this->latte = App::getService('templating.latte');
-	}
-
 	/**
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->latte->viewToString('debug/Routing/tab', []);
+		return $this->getLatte()->viewToString('debug/Routing/tab', []);
 	}
 
 	/**
@@ -32,7 +27,7 @@ class RoutingTracyPanel implements IBarPanel
 	 */
 	public function getPanel() : string {
 		$routes = $this->formatRoutes(['' => Router::$availableRoutes]);
-		return $this->latte->viewToString('debug/Routing/panel', [
+		return $this->getLatte()->viewToString('debug/Routing/panel', [
 			'request' => App::getRequest()->request,
 			'params'  => App::getRequest()->params,
 			'path'    => App::getRequest()->path,
@@ -78,5 +73,16 @@ class RoutingTracyPanel implements IBarPanel
 			return $class.'::'.implode('()->', $handler).'()';
 		}
 		return 'closure';
+	}
+
+	/**
+	 * @return Latte
+	 */
+	public function getLatte() : Latte {
+		if (!isset($this->latte)) {
+			/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
+			$this->latte = App::getService('templating.latte');
+		}
+		return $this->latte;
 	}
 }

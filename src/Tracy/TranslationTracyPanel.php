@@ -17,11 +17,6 @@ class TranslationTracyPanel implements IBarPanel
 	static public int   $translations = 0;
 	private Latte       $latte;
 
-	public function __construct() {
-		/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-		$this->latte = App::getService('templating.latte');
-	}
-
 	public static function logEvent(TranslationEvent $event) : void {
 		self::$events[] = $event;
 	}
@@ -34,15 +29,26 @@ class TranslationTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->latte->viewToString('debug/Translation/tab', []);
+		return $this->getLatte()->viewToString('debug/Translation/tab', []);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getPanel() : string {
-		$panel = $this->latte->viewToString('debug/Translation/panel', []);
+		$panel = $this->getLatte()->viewToString('debug/Translation/panel', []);
 		updateTranslations();
 		return $panel;
+	}
+
+	/**
+	 * @return Latte
+	 */
+	public function getLatte() : Latte {
+		if (!isset($this->latte)) {
+			/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
+			$this->latte = App::getService('templating.latte');
+		}
+		return $this->latte;
 	}
 }
