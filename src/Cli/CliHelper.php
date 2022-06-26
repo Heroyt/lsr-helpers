@@ -4,6 +4,7 @@
  */
 namespace Lsr\Helpers\Cli;
 
+use Lsr\Core\Router;
 use Lsr\Core\Routing\CliRoute;
 use Lsr\Helpers\Cli\Enums\ForegroundColors;
 use Lsr\Helpers\Cli\Enums\TextAttributes;
@@ -100,7 +101,7 @@ class CliHelper
 	 */
 	public static function getAllCommands(array &$routes = [], array $routesAll = [], string $currKey = '') : array {
 		if (empty($routesAll)) {
-			$routesAll = CliRoute::$availableRoutes;
+			$routesAll = Router::$availableRoutes;
 		}
 		foreach ($routesAll as $key => $route) {
 			if (count($route) === 1 && ($route[0] ?? null) instanceof CliRoute) {
