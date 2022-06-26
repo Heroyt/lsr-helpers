@@ -14,7 +14,7 @@
 	"autoload": {
 		"psr-4": {
 			"Lsr\\Helpers\\": "src/",
-			"Lsr\\Exceptions": "Exceptions/"
+			"Lsr\\Exceptions\\": "Exceptions/"
 		},
 		"files": [
 			"includes/functions.php"
