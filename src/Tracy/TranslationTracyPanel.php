@@ -19,7 +19,7 @@ class TranslationTracyPanel implements IBarPanel
 
 	public function __construct() {
 		/** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-		$this->latte = App::getService('latte');
+		$this->latte = App::getService('templating.latte');
 	}
 
 	public static function logEvent(TranslationEvent $event) : void {
