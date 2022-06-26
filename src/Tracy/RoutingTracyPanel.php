@@ -52,7 +52,7 @@ class RoutingTracyPanel implements IBarPanel
 		$formatted = [];
 		foreach ($routes as $key => $route) {
 			if (count($route) === 1 && ($route[0] ?? null) instanceof Route) {
-				$name = $route[0]->getRouteName();
+				$name = $route[0]->getName();
 				$formatted[$key] = (!empty($name) ? $name.': ' : '').$this->formatHandler($route[0]->getHandler());
 			}
 			else {
