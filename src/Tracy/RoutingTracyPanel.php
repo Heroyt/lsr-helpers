@@ -23,7 +23,7 @@ class RoutingTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->latte->view('debug/Routing/tab', [], true);
+		return $this->latte->viewToString('debug/Routing/tab', []);
 	}
 
 	/**
@@ -31,13 +31,13 @@ class RoutingTracyPanel implements IBarPanel
 	 */
 	public function getPanel() : string {
 		$routes = $this->formatRoutes(['' => Route::$availableRoutes]);
-		return $this->latte->view('debug/Routing/panel', [
+		return $this->latte->viewToString('debug/Routing/panel', [
 			'request' => App::getRequest()->request,
 			'params'  => App::getRequest()->params,
 			'path'    => App::getRequest()->path,
 			'route'   => App::getRequest()?->getRoute(),
 			'routes'  => $routes,
-		],                        true);
+		]);
 	}
 
 	/**

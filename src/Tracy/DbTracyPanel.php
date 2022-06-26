@@ -30,14 +30,14 @@ class DbTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->latte->view('debug/Db/tab', [], true);
+		return $this->latte->viewToString('debug/Db/tab', []);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getPanel() : string {
-		$panel = $this->latte->view('debug/Db/panel', [], true);
+		$panel = $this->latte->viewToString('debug/Db/panel', []);
 		updateTranslations();
 		return $panel;
 	}
