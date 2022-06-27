@@ -4,8 +4,8 @@
  */
 namespace Lsr\Helpers\Cli;
 
-use Lsr\Core\Router;
 use Lsr\Core\Routing\CliRoute;
+use Lsr\Core\Routing\Router;
 use Lsr\Helpers\Cli\Enums\ForegroundColors;
 use Lsr\Helpers\Cli\Enums\TextAttributes;
 

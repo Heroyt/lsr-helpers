@@ -6,8 +6,8 @@
 namespace Lsr\Helpers\Tracy;
 
 use Lsr\Core\App;
-use Lsr\Core\Router;
 use Lsr\Core\Routing\Route;
+use Lsr\Core\Routing\Router;
 use Lsr\Core\Templating\Latte;
 use Tracy\IBarPanel;
 
