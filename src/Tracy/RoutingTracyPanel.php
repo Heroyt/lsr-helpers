@@ -19,7 +19,7 @@ class RoutingTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->getLatte()->viewToString('debug/Routing/tab', []);
+		return $this->getLatte()->viewToString('../vendor/lsr/helpers/templates/Routing/tab', []);
 	}
 
 	/**
@@ -27,7 +27,7 @@ class RoutingTracyPanel implements IBarPanel
 	 */
 	public function getPanel() : string {
 		$routes = $this->formatRoutes(['' => Router::$availableRoutes]);
-		return $this->getLatte()->viewToString('debug/Routing/panel', [
+		return $this->getLatte()->viewToString('../vendor/lsr/helpers/templates/Routing/panel', [
 			'request' => App::getRequest()->request,
 			'params'  => App::getRequest()->params,
 			'path'    => App::getRequest()->path,

@@ -29,14 +29,14 @@ class TranslationTracyPanel implements IBarPanel
 	 * @inheritDoc
 	 */
 	public function getTab() : string {
-		return $this->getLatte()->viewToString('debug/Translation/tab', []);
+		return $this->getLatte()->viewToString('../vendor/lsr/helpers/templates/Translation/tab', []);
 	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function getPanel() : string {
-		$panel = $this->getLatte()->viewToString('debug/Translation/panel', []);
+		$panel = $this->getLatte()->viewToString('../vendor/lsr/helpers/templates/Translation/panel', []);
 		updateTranslations();
 		return $panel;
 	}
