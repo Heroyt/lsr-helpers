@@ -6,6 +6,7 @@
 namespace Lsr\Helpers\Tracy;
 
 use Lsr\Core\App;
+use Lsr\Core\Routing\CliRoute;
 use Lsr\Core\Routing\Route;
 use Lsr\Core\Routing\Router;
 use Lsr\Core\Templating\Latte;
@@ -46,6 +47,9 @@ class RoutingTracyPanel implements IBarPanel
 	private function formatRoutes(array $routes) : array {
 		$formatted = [];
 		foreach ($routes as $key => $route) {
+			if ($route instanceof CliRoute) {
+				continue;
+			}
 			if (count($route) === 1 && ($route[0] ?? null) instanceof Route) {
 				$name = $route[0]->getName();
 				$formatted[$key] = (!empty($name) ? $name.': ' : '').$this->formatHandler($route[0]->getHandler());
