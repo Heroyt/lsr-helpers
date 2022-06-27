@@ -42,13 +42,60 @@ class TimerTracyPanel implements IBarPanel
 			$exploded = explode('.', $name);
 			$curr = &$times;
 			foreach ($exploded as $part) {
+				// Check if this namespace already has a value assigned to it
+				if (isset($curr[$part]) && !is_array($curr[$part])) {
+					// Split the value and child timers
+					$curr[$part] = [
+						'time' => $curr[$part],
+						'sub'  => [],
+					];
+				}
+
+				// Check for split values
+				if (isset($curr['sub'])) {
+					$curr = &$curr['sub'];
+				}
+
 				if (!isset($curr[$part])) {
 					$curr[$part] = [];
 				}
 				$curr = &$curr[$part];
 			}
-			$curr = $info['end'] - $info['start'];
+			// Check if child timers are already defined
+			if (is_array($curr) && !empty($curr)) {
+				// Split the value and child timers
+				$curr = [
+					'time' => $this->formatInfo($info),
+					'sub'  => $curr,
+				];
+			}
+			else {
+				$curr = $this->formatInfo($info);
+			}
 		}
 		return $this->getLatte()->viewToString('../vendor/lsr/helpers/templates/Timer/panel', ['times' => $times]);
+	}
+
+	/**
+	 * @param array{start:float,end:float,lastStart:float|null,count:int|null} $info
+	 *
+	 * @return string
+	 */
+	private function formatInfo(array $info) : string {
+		$time = $info['end'] - $info['start'];
+		$formatted = $this->formatTime($time);
+
+		if (isset($info['count'])) {
+			$formatted .= ' (called '.$info['count'].'&times; - '.$this->formatTime($time / $info['count']).' average)';
+		}
+
+		return $formatted;
+	}
+
+	private function formatTime(float $time) : string {
+		if ($time < 1.0) {
+			return ($time * 1000).'ms';
+		}
+		return $time.'s';
 	}
 }
