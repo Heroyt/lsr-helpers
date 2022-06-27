@@ -50,7 +50,7 @@ class RoutingTracyPanel implements IBarPanel
 				$name = $route[0]->getName();
 				$formatted[$key] = (!empty($name) ? $name.': ' : '').$this->formatHandler($route[0]->getHandler());
 			}
-			else {
+			else if (is_array($routes)) {
 				$formatted[$key.'/'] = $this->formatRoutes($route);
 			}
 		}
