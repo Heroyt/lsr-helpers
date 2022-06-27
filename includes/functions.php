@@ -13,6 +13,7 @@ use Gettext\Generator\MoGenerator;
 use Gettext\Generator\PoGenerator;
 use Gettext\Translation;
 use Gettext\Translations;
+use Lsr\Helpers\Tools\Timer;
 use Lsr\Helpers\Tracy\Events\TranslationEvent;
 use Lsr\Helpers\Tracy\TranslationTracyPanel;
 
@@ -105,6 +106,7 @@ function lang(?string $msg = null, ?string $plural = null, int $num = 1, ?string
 	if (empty($msg)) {
 		return '';
 	}
+	Timer::startIncrementing('translation');
 
 	// Add context
 	$msgTmp = $msg;
@@ -189,6 +191,7 @@ function lang(?string $msg = null, ?string $plural = null, int $num = 1, ?string
 		}
 	}
 	TranslationTracyPanel::incrementTranslations();
+	Timer::stop('translation');
 	return $translated;
 }
 
@@ -201,6 +204,7 @@ function updateTranslations() : void {
 	if (PRODUCTION || !$translationChange) {
 		return;
 	}
+	Timer::startIncrementing('translation.update');
 	$poGenerator = new PoGenerator();
 	$moGenerator = new MoGenerator();
 	$template = null;
@@ -223,6 +227,7 @@ function updateTranslations() : void {
 		}
 		$poGenerator->generateFile($template, LANGUAGE_DIR.LANGUAGE_FILE_NAME.'.pot');
 	}
+	Timer::stop('translation.update');
 }
 
 /**
