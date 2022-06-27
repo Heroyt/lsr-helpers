@@ -54,6 +54,14 @@ class TimerTracyPanel implements IBarPanel
 				// Check for split values
 				if (isset($curr['sub'])) {
 					$curr = &$curr['sub'];
+					// Check if this namespace already has a value assigned to it
+					if (isset($curr[$part]) && !is_array($curr[$part])) {
+						// Split the value and child timers
+						$curr[$part] = [
+							'time' => $curr[$part],
+							'sub'  => [],
+						];
+					}
 				}
 
 				if (!isset($curr[$part])) {
@@ -86,7 +94,7 @@ class TimerTracyPanel implements IBarPanel
 		$formatted = $this->formatTime($time);
 
 		if (isset($info['count'])) {
-			$formatted .= ' (called '.$info['count'].'&times; - '.$this->formatTime($time / $info['count']).' average)';
+			$formatted .= ' (called '.$info['count'].' times - '.$this->formatTime($time / $info['count']).' average)';
 		}
 
 		return $formatted;
