@@ -66,9 +66,9 @@ class CacheTracyPanel implements IBarPanel
 	 */
 	public function getPanel() : string {
 		try {
-			$hits = $this->getCache()->hit;
-			$miss = $this->getCache()->miss;
-			$loadedKeys = $this->getCache()->loadedKeys;
+			$hits = $this->getCache()::$hit;
+			$miss = $this->getCache()::$miss;
+			$loadedKeys = $this->getCache()::$loadedKeys;
 			arsort($loadedKeys);
 		} catch (Exception $e) {
 			$hits = 0;
