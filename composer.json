@@ -1,6 +1,7 @@
 {
 	"name": "lsr/helpers",
 	"description": "Laser framework core - Helpers.",
+	"version": "0.1.1",
 	"repositories": [
 		{
 			"type": "composer",
@@ -32,6 +33,6 @@
 		"nette/utils": "^3.2",
 		"gettext/gettext": "^5.6",
 		"tracy/tracy": "^2.8",
-		"lsr/interfaces": "dev-master"
+		"lsr/interfaces": "^0.1"
 	}
 }
