@@ -6,6 +6,8 @@ namespace Lsr\Helpers\Cli\Enums;
 
 /**
  * List of CLI font attributes that can be applied to stdout
+ *
+ * @property string $value
  */
 enum TextAttributes: string
 {

@@ -6,6 +6,8 @@ namespace Lsr\Helpers\Cli\Enums;
 
 /**
  * List of CLI background colors and their values
+ *
+ * @property string $value
  */
 enum BackgroundColors: string
 {

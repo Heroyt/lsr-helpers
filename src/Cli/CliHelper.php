@@ -2,12 +2,14 @@
 /**
  * @author Tomáš Vojík <xvojik00@stud.fit.vutbr.cz>, <vojik@wboy.cz>
  */
+
 namespace Lsr\Helpers\Cli;
 
 use Lsr\Core\Routing\CliRoute;
 use Lsr\Core\Routing\Router;
 use Lsr\Helpers\Cli\Enums\ForegroundColors;
 use Lsr\Helpers\Cli\Enums\TextAttributes;
+use Lsr\Interfaces\RouteInterface;
 
 /**
  * Helper function for CLI tools
@@ -18,8 +20,8 @@ class CliHelper
 	/**
 	 * Print a formatted error message to the stderr
 	 *
-	 * @param string $message
-	 * @param mixed  ...$args
+	 * @param string           $message
+	 * @param float|string|int ...$args
 	 *
 	 * @return void
 	 */
@@ -87,7 +89,9 @@ class CliHelper
 		}
 		echo PHP_EOL.Colors::color(ForegroundColors::YELLOW).lang('Arguments', context: 'cli.messages').':'.Colors::reset().PHP_EOL;
 		foreach ($route->arguments as $argument) {
+			/** @phpstan-ignore-next-line */
 			$name = $argument['isOptional'] ?? false ? "[{$argument['name']}]" : "<{$argument['name']}>";
+			/** @phpstan-ignore-next-line */
 			echo Colors::color(ForegroundColors::BLUE).$name.Colors::reset().PHP_EOL."\t".lang($argument['description'] ?? '', context: 'cli.help.arguments').PHP_EOL;
 		}
 	}
@@ -104,7 +108,7 @@ class CliHelper
 			$routesAll = Router::$availableRoutes;
 		}
 		foreach ($routesAll as $key => $route) {
-			if (count($route) === 1 && ($route[0] ?? null) instanceof CliRoute) {
+			if ($route instanceof RouteInterface || (count($route) === 1 && ($route[0] ?? null) instanceof CliRoute)) {
 				$routes[] = $currKey;
 			}
 			else {
