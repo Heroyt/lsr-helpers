@@ -24,3 +24,4 @@ Temporary Items
 temp/
 build/
 *.cache
+*.lock
