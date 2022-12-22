@@ -7,10 +7,6 @@ use Lsr\Core\App;
 class LogoHelper
 {
 
-	public static function upload(array $file) : void {
-
-	}
-
 	/**
 	 * Checks there exists an image of the arena
 	 *
@@ -34,6 +30,13 @@ class LogoHelper
 	 * @return string Full path to image
 	 */
 	public static function getLogoFileName() : string {
+		$imageBase = UPLOAD_DIR.'images/logo';
+		if (file_exists($imageBase.'.svg')) {
+			return $imageBase.'.svg';
+		}
+		if (file_exists($imageBase.'.png')) {
+			return $imageBase.'.png';
+		}
 		$imageBase = ASSETS_DIR.'images/logo';
 		if (file_exists($imageBase.'.svg')) {
 			return $imageBase.'.svg';
