@@ -30,7 +30,7 @@ class LogoHelper
 	 * @return string Full path to image
 	 */
 	public static function getLogoFileName() : string {
-		$imageBase = UPLOAD_DIR.'images/logo';
+		$imageBase = UPLOAD_DIR.'logo';
 		if (file_exists($imageBase.'.svg')) {
 			return $imageBase.'.svg';
 		}
