@@ -7,6 +7,10 @@ use Lsr\Core\App;
 class LogoHelper
 {
 
+	public static function upload(array $file) : void {
+
+	}
+
 	/**
 	 * Checks there exists an image of the arena
 	 *
