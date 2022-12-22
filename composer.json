@@ -1,7 +1,7 @@
 {
 	"name": "lsr/helpers",
 	"description": "Laser framework core - Helpers.",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"scripts": {
 		"analyze": "vendor/bin/phpstan analyze",
 		"test": "vendor/bin/phpunit"

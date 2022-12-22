@@ -31,7 +31,7 @@ class UploadedFile implements FileInterface
 	/**
 	 * @param string $name
 	 *
-	 * @return UploadedFile[]|UploadedFile[][]|UploadedFile[][][]
+	 * @return array<string|int,UploadedFile|null|array<string|int,UploadedFile|null|array<string|int,UploadedFile|null>>>
 	 */
 	public static function parseUploadedMultiple(string $name) : array {
 		if (!isset($_FILES[$name])) {
@@ -50,21 +50,20 @@ class UploadedFile implements FileInterface
 	 * @param array<string|int,mixed> $iterableFiles
 	 * @param array<string|int>       $keys
 	 *
-	 * @return UploadedFile[]|UploadedFile[][]|UploadedFile[][][]
+	 * @return array<string|int,UploadedFile|null|array<string|int,UploadedFile|null|array<string|int,UploadedFile|null>>>
 	 */
 	private static function parseFilesMultiple(array $files, array $iterableFiles, array $keys = []) : array {
 		$out = [];
 		foreach ($iterableFiles as $key => $file) {
 			if (is_array($file)) {
-				$keys2 = $keys;
-				$keys2[] = $key;
-				$out[$key] = self::parseFilesMultiple($files, $file, $keys2);
+				$out[$key] = self::parseFilesMultiple($files, $file, [...$keys, $key]);
 				continue;
 			}
+
 			$names = $files['name'];
 			$tmpNames = $files['tmp_name'];
 			$errors = $files['error'];
-			foreach ($keys as $key2) {
+			foreach ([...$keys, $key] as $key2) {
 				$names = $names[$key2];
 				$tmpNames = $tmpNames[$key2];
 				$errors = $errors[$key2];
@@ -72,7 +71,7 @@ class UploadedFile implements FileInterface
 			if (!is_string($names) || !is_string($tmpNames) || !is_int($errors)) {
 				throw new RuntimeException('Cannot create new UploadedFile object for keys: '.implode('.', $keys));
 			}
-			$out[$key] = new self($names, $tmpNames, $errors);
+			$out[$key] = empty($tmpNames) ? null : new self($names, $tmpNames, $errors);
 		}
 		return $out;
 	}
