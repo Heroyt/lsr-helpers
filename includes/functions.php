@@ -132,32 +132,36 @@ if (!function_exists('lang')) {
 
 		// If in development - add translation to po file if not exist
 		/** @phpstan-ignore-next-line */
-		if (!PRODUCTION && CHECK_TRANSLATIONS && TRANSLATIONS_COMMENTS) {
+		if (!PRODUCTION && CHECK_TRANSLATIONS) {
 			$logged = false;
-			// Use an exception to get the trace to this function call
-			$trace = (new Exception)->getTrace();
+
 			$file = '';
-			if (is_array($trace) && isset($trace[0])) {
-				/** @phpstan-ignore-next-line */
-				$file = str_replace(ROOT, '/', $trace[0]['file']).':'.$trace[0]['line'];
-				/** @phpstan-ignore-next-line */
-				if (str_contains($trace[0]['file'], 'latte')) {
-					// Load parsed latte file by lines
-					/** @var string[] $lines */
-					$lines = file($trace[0]['file']);
-					// Source comment is on line 5
-					$line = $lines[4] ?? '';
-					if (preg_match('/\/\*+ source: ([^*]+) \*\//', $line, $matches)) {
-						$file = str_replace(ROOT, '/', $matches[1]).':';
-						// Find line number
-						// Line number should be located in a comment somewhere on or bellow the called line
-						$lineCount = count($lines);
-						/** @phpstan-ignore-next-line */
-						for ($i = $trace[0]['line'] - 1; $i < $lineCount; $i++) {
-							if (preg_match('/\/\*+ line (\d+) \*\//', $lines[$i], $matches)) {
-								// Found line number
-								$file .= $matches[1];
-								break;
+
+			if (TRANSLATIONS_COMMENTS) {
+				// Use an exception to get the trace to this function call
+				$trace = (new Exception)->getTrace();
+				if (is_array($trace) && isset($trace[0])) {
+					/** @phpstan-ignore-next-line */
+					$file = str_replace(ROOT, '/', $trace[0]['file']).':'.$trace[0]['line'];
+					/** @phpstan-ignore-next-line */
+					if (str_contains($trace[0]['file'], 'latte')) {
+						// Load parsed latte file by lines
+						/** @var string[] $lines */
+						$lines = file($trace[0]['file']);
+						// Source comment is on line 5
+						$line = $lines[4] ?? '';
+						if (preg_match('/\/\*+ source: ([^*]+) \*\//', $line, $matches)) {
+							$file = str_replace(ROOT, '/', $matches[1]).':';
+							// Find line number
+							// Line number should be located in a comment somewhere on or bellow the called line
+							$lineCount = count($lines);
+							/** @phpstan-ignore-next-line */
+							for ($i = $trace[0]['line'] - 1; $i < $lineCount; $i++) {
+								if (preg_match('/\/\*+ line (\d+) \*\//', $lines[$i], $matches)) {
+									// Found line number
+									$file .= $matches[1];
+									break;
+								}
 							}
 						}
 					}
