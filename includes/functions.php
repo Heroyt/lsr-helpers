@@ -132,7 +132,7 @@ if (!function_exists('lang')) {
 
 		// If in development - add translation to po file if not exist
 		/** @phpstan-ignore-next-line */
-		if (!PRODUCTION && CHECK_TRANSLATIONS) {
+		if (!PRODUCTION && CHECK_TRANSLATIONS && TRANSLATIONS_COMMENTS) {
 			$logged = false;
 			// Use an exception to get the trace to this function call
 			$trace = (new Exception)->getTrace();

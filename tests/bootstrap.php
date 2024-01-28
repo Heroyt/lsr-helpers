@@ -11,6 +11,7 @@ const TEMPLATE_DIR = ROOT.'templates/';
 const LANGUAGE_FILE_NAME = 'translations';
 const DEFAULT_LANGUAGE = 'cs_CZ';
 const CHECK_TRANSLATIONS = true;
+const TRANSLATIONS_COMMENTS = false;
 const PRODUCTION = true;
 const ASSETS_DIR = ROOT.'assets/';
 
