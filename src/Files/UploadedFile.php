@@ -120,7 +120,7 @@ class UploadedFile implements FileInterface
 	public function getErrorMessage() : string {
 		return match ($this->error) {
 			UPLOAD_ERR_OK => '',
-			UPLOAD_ERR_INI_SIZE => lang('Uploaded file is too large', context: 'errors'),
+			UPLOAD_ERR_INI_SIZE => lang('Nahraný soubor je příliš velký', context: 'errors'),
 			UPLOAD_ERR_FORM_SIZE => lang('Form size is to large', context: 'errors'),
 			UPLOAD_ERR_PARTIAL => lang('The uploaded file was only partially uploaded.', context: 'errors'),
 			UPLOAD_ERR_CANT_WRITE => lang('Failed to write file to disk.', context: 'errors'),

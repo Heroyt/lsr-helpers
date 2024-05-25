@@ -27,8 +27,8 @@ class CliHelper
 	 */
 	public static function printErrorMessage(string $message, ...$args) : void {
 		$message = Colors::color(foreground: ForegroundColors::RED, attribute: TextAttributes::BOLD).
-			lang('Error', context: 'cli.messages').': '.
-			Colors::color(attribute: TextAttributes::UN_BOLD).lang($message, context: 'cli.errors').
+			lang('Error', domain: 'cli', context: 'messages').': '.
+			Colors::color(attribute: TextAttributes::UN_BOLD).lang($message, domain: 'cli', context: 'errors').
 			Colors::reset().PHP_EOL;
 		fprintf(STDERR, $message, ...$args);
 	}
@@ -37,7 +37,7 @@ class CliHelper
 	 * @return void
 	 */
 	public static function printUsage() : void {
-		echo PHP_EOL.Colors::color(ForegroundColors::GREEN, attribute: TextAttributes::BOLD).lang('Usage', context: 'cli.messages').':'.Colors::reset().PHP_EOL;
+		echo PHP_EOL.Colors::color(ForegroundColors::GREEN, attribute: TextAttributes::BOLD).lang('Usage', domain: 'cli', context: 'messages').':'.Colors::reset().PHP_EOL;
 		echo TextAttributes::BOLD->value.self::getCaller().TextAttributes::UN_BOLD->value.' <request> [arguments...]'.PHP_EOL.PHP_EOL;
 	}
 
@@ -59,7 +59,7 @@ class CliHelper
 	 * @return void
 	 */
 	public static function printRouteUsage(CliRoute $route) : void {
-		echo PHP_EOL.Colors::color(ForegroundColors::GREEN, attribute: TextAttributes::BOLD).lang('Usage', context: 'cli.messages').':'.Colors::reset().PHP_EOL;
+		echo PHP_EOL.Colors::color(ForegroundColors::GREEN, attribute: TextAttributes::BOLD).lang('Usage', domain: 'cli', context: 'messages').':'.Colors::reset().PHP_EOL;
 		echo TextAttributes::BOLD->value.self::getCaller().' '.implode('/', $route->path).TextAttributes::UN_BOLD->value.' '.$route->usage.PHP_EOL;
 	}
 
@@ -87,12 +87,12 @@ class CliHelper
 		if (empty($route->arguments)) {
 			return;
 		}
-		echo PHP_EOL.Colors::color(ForegroundColors::YELLOW).lang('Arguments', context: 'cli.messages').':'.Colors::reset().PHP_EOL;
+		echo PHP_EOL.Colors::color(ForegroundColors::YELLOW).lang('Arguments', domain: 'cli', context: 'messages').':'.Colors::reset().PHP_EOL;
 		foreach ($route->arguments as $argument) {
 			/** @phpstan-ignore-next-line */
 			$name = $argument['isOptional'] ?? false ? "[{$argument['name']}]" : "<{$argument['name']}>";
 			/** @phpstan-ignore-next-line */
-			echo Colors::color(ForegroundColors::BLUE).$name.Colors::reset().PHP_EOL."\t".lang($argument['description'] ?? '', context: 'cli.help.arguments').PHP_EOL;
+			echo Colors::color(ForegroundColors::BLUE).$name.Colors::reset().PHP_EOL."\t".lang($argument['description'] ?? '', domain: 'cli', context: 'help.arguments').PHP_EOL;
 		}
 	}
 
