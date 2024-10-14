@@ -9,6 +9,7 @@ class TranslationEvent
 
 	public string  $message = '';
 	public ?string $plural  = null;
+	public ?string $domain = null;
 	public ?string $context = null;
 	public string  $source  = '';
 
