@@ -45,7 +45,7 @@ class RoutingTracyPanel implements IBarPanel
 	 */
 	public function getPanel() : string {
         $routes = $this->formatRoutes(['' => Router::$availableRoutes]);
-        $requestObj = App::getRequest();
+        $requestObj = App::getInstance()->getRequest();
         $route = $requestObj->getRoute();
         if ($requestObj instanceof Request) {
             $request = $requestObj->request;

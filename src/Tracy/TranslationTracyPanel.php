@@ -71,7 +71,7 @@ class TranslationTracyPanel implements IBarPanel
         $languageTitle = lang('Language', context: 'debugPanel');
         $language = App::getInstance()->getLanguage();
         $translations = App::getInstance()->translations;
-        $activeDump = Dumper::toHtml(App::$activeLanguageCode);
+        $activeDump = Dumper::toHtml($translations->getLang());
         $languageDump = Dumper::toHtml($language);
         $supportedDump = Dumper::toHtml($translations->supportedLanguages);
         $accept = '';
