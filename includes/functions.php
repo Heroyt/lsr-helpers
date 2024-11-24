@@ -150,7 +150,7 @@ if (!function_exists('ratio')) {
      *
      * @return int|array{0:float, 1:float} One simplified number or the whole ratio as an array
      */
-    function ratio(int $var1, int $var2, int $return = null) : array | int {
+    function ratio(int $var1, int $var2, ?int $return = null) : array | int {
         for ($x = $var1; $x > 1; $x--) {
             if (($var1 % $x) === 0 && ($var2 % $x) === 0) {
                 $var1 /= $x;
