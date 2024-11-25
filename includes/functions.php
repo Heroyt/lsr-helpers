@@ -56,9 +56,9 @@ if (!function_exists('formValid')) {
      *
      * @return bool
      */
-    function formValid(string $name) : bool {
+    function formValid(string $name, ?string $token = null) : bool {
         $hash = hash_hmac('sha256', $name, $_SESSION[$name.'_csrf_hash'] ?? '');
-        return isTokenValid($_REQUEST['_csrf_token'], $hash);
+        return isTokenValid($token ?? $_REQUEST['_csrf_token'] ?? '', $hash);
     }
 }
 
