@@ -1,7 +1,7 @@
 {
 	"name": "lsr/helpers",
 	"description": "Laser framework core - Helpers.",
-	"version": "0.2.13",
+	"version": "0.3.0",
 	"scripts": {
 		"analyze": "vendor/bin/phpstan analyze",
 		"test": "vendor/bin/phpunit"
@@ -14,11 +14,11 @@
 	],
 	"require-dev": {
 		"roave/security-advisories": "dev-latest",
-		"phpunit/phpunit": "^9.5",
-		"phpstan/phpstan": "^1.8",
-		"phpstan/extension-installer": "^1.1",
-		"phpstan/phpstan-dibi": "^1.0",
-		"phpstan/phpstan-nette": "^1.0"
+		"phpunit/phpunit": "^11.5",
+		"phpstan/phpstan": "^2",
+		"phpstan/extension-installer": "^1",
+		"phpstan/phpstan-dibi": "^2",
+		"phpstan/phpstan-nette": "^2"
 	},
 	"autoload": {
 		"psr-4": {
@@ -37,12 +37,12 @@
 	],
 	"minimum-stability": "stable",
 	"require": {
-		"php": ">=8.1",
+		"php": ">=8.4",
 		"nette/utils": "^4.0",
 		"gettext/gettext": "^5.7",
 		"tracy/tracy": "^2.9",
-		"lsr/interfaces": "^0.2",
-		"lsr/routing": "^0.2"
+		"ext-simplexml": "*",
+		"lsr/interfaces": "^0.3.0"
 	},
 	"config": {
 		"allow-plugins": {

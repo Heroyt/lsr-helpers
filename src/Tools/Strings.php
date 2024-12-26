@@ -41,13 +41,13 @@ class Strings extends \Nette\Utils\Strings
 	public static function toSnakeCase(string $str, string $separator = '_') : string {
 		if (!ctype_lower($str)) {
 			$str = (string) preg_replace('/\s+/u', '', ucwords($str));
-			$str = mb_strtolower(
-				preg_replace(
-					'/(.)(?=[A-Z])/u',
-					'$1'.$separator,
-					$str
-				)
-			);
+            $str = preg_replace(
+                '/(.)(?=[A-Z])/u',
+                '$1'.$separator,
+                $str
+            );
+            assert(is_string($str));
+			$str = mb_strtolower($str);
 		}
 
 		return $str;

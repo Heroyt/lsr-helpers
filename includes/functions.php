@@ -11,7 +11,6 @@
 
 /** @noinspection PhpUnused */
 
-use Lsr\Core\App;
 use Lsr\Exceptions\FileException;
 
 if (!function_exists('formToken')) {
@@ -22,11 +21,14 @@ if (!function_exists('formToken')) {
      *
      * @return string
      */
+    #[Deprecated('Use the new \Lsr\Helpers\Csrf\TokenHelper')]
     function formToken(string $prefix = '') : string {
         if (empty($_SESSION[$prefix.'_csrf_hash'])) {
             $_SESSION[$prefix.'_csrf_hash'] = bin2hex(random_bytes(32));
         }
-        return $_SESSION[$prefix.'_csrf_hash'];
+        $hash = $_SESSION[$prefix.'_csrf_hash'];
+        assert(is_string($hash));
+        return $hash;
     }
 }
 
@@ -40,9 +42,11 @@ if (!function_exists('isTokenValid')) {
      *
      * @return bool
      */
+    #[Deprecated('Use the new \Lsr\Helpers\Csrf\TokenHelper')]
     function isTokenValid(string $hash, string $check = '') : bool {
         if (empty($check)) {
-            $check = (string) ($_SESSION['_csrf_hash'] ?? '');
+            $check = ($_SESSION['_csrf_hash'] ?? '');
+            assert(is_string($check));
         }
         return hash_equals($check, $hash);
     }
@@ -56,9 +60,12 @@ if (!function_exists('formValid')) {
      *
      * @return bool
      */
+    #[Deprecated('Use the new \Lsr\Helpers\Csrf\TokenHelper')]
     function formValid(string $name, ?string $token = null) : bool {
-        $hash = hash_hmac('sha256', $name, $_SESSION[$name.'_csrf_hash'] ?? '');
-        return isTokenValid($token ?? $_REQUEST['_csrf_token'] ?? '', $hash);
+        $hash = $_SESSION[$name.'_csrf_hash'] ?? '';
+        assert(is_string($hash));
+        $hash = hash_hmac('sha256', $name, $hash);
+        return isTokenValid($token ?? '', $hash);
     }
 }
 
@@ -94,49 +101,6 @@ if (!function_exists('map')) {
      */
     function map(float $x, float $minIn, float $maxIn, float $minOut, float $maxOut) : float {
         return ($x - $minIn) * ($maxOut - $minOut) / ($maxIn - $minIn) + $minOut;
-    }
-}
-
-if (!function_exists('lang')) {
-    /**
-     * Wrapper for gettext function
-     *
-     * @param  string|null  $msg  Massage to translate
-     * @param  string|null  $plural
-     * @param  int  $num
-     * @param  string|null  $context
-     * @param  string|null  $domain
-     * @param  array  $format
-     * @return string Translated message
-     *
-     * @version 1.0
-     * @author  Tomáš Vojík <vojik@wboy.cz>
-     */
-    function lang(
-      ?string $msg = null,
-      ?string $plural = null,
-      int     $num = 1,
-      ?string $context = null,
-      ?string $domain = null,
-      array   $format = []
-    ) : string {
-        return App::getInstance()->translations->translate(
-                   $msg,
-          plural : $plural,
-          num    : $num,
-          domain : $domain,
-          context: $context,
-          format : $format
-        );
-    }
-}
-
-if (!function_exists('updateTranslations')) {
-    /**
-     * Regenerate the translation .po files
-     */
-    function updateTranslations() : void {
-        App::getInstance()->translations->updateTranslations();
     }
 }
 

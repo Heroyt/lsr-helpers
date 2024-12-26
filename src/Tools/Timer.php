@@ -21,10 +21,12 @@ class Timer
 	 *
 	 */
 	public static function start(string $name) : void {
-		if (PRODUCTION) {
-			return;
-		}
-		self::$timers[$name] = [
+        /** @phpstan-ignore if.alwaysTrue */
+        if (PRODUCTION) {
+            return;
+        }
+        /** @phpstan-ignore deadCode.unreachable */
+        self::$timers[$name] = [
 			'start' => microtime(true),
 			'end'   => 0.0,
 		];
@@ -40,9 +42,11 @@ class Timer
 	 * @return void
 	 */
 	public static function startIncrementing(string $name) : void {
+        /** @phpstan-ignore if.alwaysTrue */
 		if (PRODUCTION) {
 			return;
 		}
+        /** @phpstan-ignore deadCode.unreachable */
 		$start = microtime(true);
 
 		if (isset(self::$timers[$name])) {
@@ -69,10 +73,12 @@ class Timer
 	 * @return void
 	 */
 	public static function stop(string $name) : void {
+        /** @phpstan-ignore booleanOr.leftAlwaysTrue */
 		if (PRODUCTION || !isset(self::$timers[$name])) {
 			return;
 		}
 
+        /** @phpstan-ignore deadCode.unreachable */
 		if (isset(self::$timers[$name]['lastStart']) && self::$timers[$name]['end'] > 0.0) { // Incrementing
 			self::$timers[$name]['end'] += microtime(true) - self::$timers[$name]['lastStart'];
 			return;
